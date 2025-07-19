@@ -1,13 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="MAIN" Id="{b9a671a8-df30-4416-a74a-a1d58cfcceb8}">
+  <POU Name="MAIN" Id="{b9a671a8-df30-4416-a74a-a1d58cfcceb8}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	bBuzzer 			: BOOL ;
+	bPizzaInOven 		: BOOL ;	
+	
+	fbTimer : TON ;
+	fbPizzaCookedTrigger :R_TRIG ;
+	
+	nTotalPizzasCooked	: UINT ;
+	tOvenTime			: TIME := T#4S;
+	
 END_VAR
-]]>
-    </Declaration>
+]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[
+fbTimer( IN := bPizzaInOven, PT:= tOvenTime); 
+fbPizzaCookedTrigger(CLK := fbTimer.Q);
+
+bBuzzer := fbTimer.Q ;
+
+IF fbPizzaCookedTrigger.Q THEN
+	nTotalPizzasCooked := nTotalPizzasCooked +1 ;
+END_IF]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

@@ -46,6 +46,11 @@
       <SystemLibrary>true</SystemLibrary>
     </PlaceholderReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="PLC_1.tmc">
+      <SubType>Content</SubType>
+    </None>
+  </ItemGroup>
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
