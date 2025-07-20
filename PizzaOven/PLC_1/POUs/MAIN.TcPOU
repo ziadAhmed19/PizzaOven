@@ -3,27 +3,71 @@
   <POU Name="MAIN" Id="{b9a671a8-df30-4416-a74a-a1d58cfcceb8}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	bBuzzer 			: BOOL ;
-	bPizzaInOven 		: BOOL ;	
+	bBuzzer 				: BOOL := FALSE ;
+	bPizzaInOven 			: BOOL ;	
+	bPizzaOnDeck			: BOOL ;
+	bPizzaDone				: BOOL ;
+	bInsertPizza_btn 		: BOOL ; // Put Pizza on the input side
+	bPackagePizza_btn 		: BOOL ; // Take pizza off the output side
 	
 	fbTimer : TON ;
 	fbPizzaCookedTrigger :R_TRIG ;
+	tOvenTime			: TIME := T#4S;
 	
 	nTotalPizzasCooked	: UINT ;
-	tOvenTime			: TIME := T#4S;
+	
+	sCurrentStateString : STRING ;
+
+	eState 				: E_PizzaOvenStates ;
 	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[
-fbTimer( IN := bPizzaInOven, PT:= tOvenTime); 
-fbPizzaCookedTrigger(CLK := fbTimer.Q);
+      <ST><![CDATA[IF bInsertPizza_btn THEN
+	eState := E_PizzaOvenStates.WaitForPizzaInOven ;
+END_IF
 
-bBuzzer := fbTimer.Q ;
 
-IF fbPizzaCookedTrigger.Q THEN
-	nTotalPizzasCooked := nTotalPizzasCooked +1 ;
-END_IF]]></ST>
+CASE eState OF 
+	E_PizzaOvenStates.WaitForPizzaInOven:
+		sCurrentStateString := 'WaitForPizzaInOven';
+		bPizzaOnDeck 	:= TRUE;
+		
+		IF NOT bPizzaInOven THEN
+			// Turn on the Oven Timer
+			fbTimer( IN := bPizzaInOven, PT:= tOvenTime);
+			// Transation to the next State 
+			bPizzaInOven 	:= TRUE ;	
+			bPizzaDone		:= FALSE;
+			bPizzaOnDeck 	:= FALSE;
+			eState := E_PizzaOvenStates.WeJustGotAPizza;
+		END_IF
+	// End Case
+	
+	E_PizzaOvenStates.WeJustGotAPizza:
+	WHILE bPizzaInOven  AND NOT bPackagePizza_btn DO
+		sCurrentStateString := 'WeJustGotAPizza';
+		
+			IF fbTimer.Q THEN
+				//fbPizzaCookedTrigger(CLK := fbTimer.Q);
+				bBuzzer := TRUE ;
+				bPizzaDone := TRUE ;
+			END_IF
+			
+	END_WHILE
+			// Transation to the next state 
+			bBuzzer := FALSE ;
+			bPizzaInOven 	:= TRUE ;
+			nTotalPizzasCooked := nTotalPizzasCooked + 1 ;
+			eState := E_PizzaOvenStates.MovePizzaOutOfOven ;
+
+	// End Case
+	
+	E_PizzaOvenStates.MovePizzaOutOfOven:
+		sCurrentStateString := 'MovePizzaOutOfOven';
+		bPizzaInOven := FALSE ;
+	
+END_CASE]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>
