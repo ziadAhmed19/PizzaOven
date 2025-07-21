@@ -8,7 +8,8 @@ TYPE E_PizzaOvenStates :
 (
 	WaitForPizzaInOven 	:= 0,
 	WeJustGotAPizza		:= 1,
-	MovePizzaOutOfOven	:= 2
+	MovePizzaOutOfOven	:= 2,
+	MovePizzaToTray		:=3
 );
 END_TYPE
 ]]></Declaration>
