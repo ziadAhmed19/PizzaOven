@@ -3,18 +3,18 @@
   <POU Name="MAIN" Id="{b9a671a8-df30-4416-a74a-a1d58cfcceb8}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	bBuzzer 				: BOOL := FALSE ;
-	bPizzaInOven 			: BOOL ;	
-	bPizzaOnDeck			: BOOL ;
-	bPizzaDone				: BOOL ;
-	bInsertPizza_btn 		: BOOL ; // Put Pizza on the input side
-	bPackagePizza_btn 		: BOOL ; // Take pizza off the output side
+	bBuzzer 				: BOOL := FALSE;
+	bPizzaInOven 			: BOOL := FALSE; //PizzaInOven 	Visual 	
+	bPizzaOnDeck			: BOOL := FALSE; //PizzaOnDeck 	Visual 
+	bPizzaDone				: BOOL := FALSE; //PizzaDone 	Visual 
+	bLoadPizza				: BOOL := FALSE; //InsertPizza button
+	bRemovePizza			: BOOL := FALSE; //InsertPizza button
 	
 	fbTimer : TON ;
 	fbPizzaCookedTrigger :R_TRIG ;
 	tOvenTime			: TIME := T#4S;
 	
-	nTotalPizzasCooked	: UINT ;
+	nTotalPizzasCooked	: UINT := 0;
 	
 	sCurrentStateString : STRING ;
 
@@ -23,50 +23,54 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF bInsertPizza_btn THEN
-	eState := E_PizzaOvenStates.WaitForPizzaInOven ;
-END_IF
-
+      <ST><![CDATA[// Once program Starts init state is WaitForPizzaInOven
 
 CASE eState OF 
 	E_PizzaOvenStates.WaitForPizzaInOven:
 		sCurrentStateString := 'WaitForPizzaInOven';
-		bPizzaOnDeck 	:= TRUE;
-		
-		IF NOT bPizzaInOven THEN
-			// Turn on the Oven Timer
-			fbTimer( IN := bPizzaInOven, PT:= tOvenTime);
-			// Transation to the next State 
-			bPizzaInOven 	:= TRUE ;	
-			bPizzaDone		:= FALSE;
-			bPizzaOnDeck 	:= FALSE;
-			eState := E_PizzaOvenStates.WeJustGotAPizza;
-		END_IF
-	// End Case
+        fbPizzaCookedTrigger(CLK := bLoadPizza);
+        
+		IF fbPizzaCookedTrigger.Q THEN
+            bPizzaOnDeck := TRUE;
+            IF NOT bPizzaInOven THEN
+                // Start the Oven Timer
+                fbTimer(IN := TRUE, PT := tOvenTime);
+				bPizzaOnDeck:= FALSE ;                
+				bPizzaInOven := TRUE;    
+                bPizzaDone := FALSE;
+				
+                eState := E_PizzaOvenStates.WeJustGotAPizza;
+            END_IF
+        END_IF
+	// break ;
 	
 	E_PizzaOvenStates.WeJustGotAPizza:
-	WHILE bPizzaInOven  AND NOT bPackagePizza_btn DO
-		sCurrentStateString := 'WeJustGotAPizza';
-		
+	sCurrentStateString := 'WeJustGotAPizza';
+		WHILE bPizzaInOven DO
+			fbPizzaCookedTrigger(CLK := bRemovePizza);
 			IF fbTimer.Q THEN
-				//fbPizzaCookedTrigger(CLK := fbTimer.Q);
 				bBuzzer := TRUE ;
-				bPizzaDone := TRUE ;
 			END_IF
 			
+			IF fbPizzaCookedTrigger.Q THEN
+				bPizzaInOven 	:= FALSE ;
+				EXIT ;
+			END_IF
 	END_WHILE
 			// Transation to the next state 
 			bBuzzer := FALSE ;
-			bPizzaInOven 	:= TRUE ;
+			bPizzaDone := TRUE ;
 			nTotalPizzasCooked := nTotalPizzasCooked + 1 ;
 			eState := E_PizzaOvenStates.MovePizzaOutOfOven ;
 
-	// End Case
+	// break ;
 	
 	E_PizzaOvenStates.MovePizzaOutOfOven:
 		sCurrentStateString := 'MovePizzaOutOfOven';
-		bPizzaInOven := FALSE ;
-	
+		bPizzaDone := FALSE ;
+		// Transation to the next state
+		eState := E_PizzaOvenStates.WaitForPizzaInOven ;
+	// break ;
 END_CASE]]></ST>
     </Implementation>
   </POU>

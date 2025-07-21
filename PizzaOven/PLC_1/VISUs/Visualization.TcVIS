@@ -5,7 +5,7 @@
       <Data>
         <o xml:space="preserve" t="VisualObject">
           <n n="LastVisuLanguageModelEntry" />
-          <v n="UniqueIdGenerator">"54"</v>
+          <v n="UniqueIdGenerator">"60"</v>
           <o n="VisualElemList" t="VisualElemList">
             <l n="VisualElementList" t="VisualElemCollection" cet="GenericVisualElem">
               <o>
@@ -262,7 +262,7 @@
                     </o>
                     <o>
                       <v n="Id">1647042231L</v>
-                      <v n="Value">"&lt;toggle/tap variable&gt;"</v>
+                      <v n="Value">"MAIN.bPizzaOnDeck"</v>
                     </o>
                     <o>
                       <v n="Id">2812299069L</v>
@@ -378,7 +378,7 @@
                 <v n="VisualElementIdentifier">"GenElemInst_4"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                   <v>OnMouseClick</v>
                   <a cet="STSnippetInputAction">
                     <o>
@@ -566,7 +566,7 @@
                 <v n="VisualElementIdentifier">"GenElemInst_5"</v>
                 <n n="VisualElementOfflinePaintCommands" />
                 <n n="VisualElementFrameInformation" />
-                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="IInputAction[]">
+                <d n="VisualElementInputActions" t="Hashtable" ckt="String" cvt="STSnippetInputAction[]">
                   <v>OnMouseClick</v>
                   <a cet="STSnippetInputAction">
                     <o>
@@ -3587,7 +3587,6 @@ END_VAR"</v>
         <Type n="Guid">System.Guid</Type>
         <Type n="Hashtable">System.Collections.Hashtable</Type>
         <Type n="HotkeyConfiguration">{6b108d46-58af-4e41-a3f4-174d8f160cc4}</Type>
-        <Type n="IInputAction[]">_3S.CoDeSys.VisualElem.IInputAction[], VisualElem, Version=4.7.0.0, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="Int16">System.Int16</Type>
         <Type n="Int32">System.Int32</Type>
         <Type n="Int64">System.Int64</Type>
@@ -3595,6 +3594,7 @@ END_VAR"</v>
         <Type n="NamedStyleFont">{9e842eb2-1463-4af2-b605-4fbb17044f94}</Type>
         <Type n="String">System.String</Type>
         <Type n="STSnippetInputAction">{6302d3fe-6ea5-4c42-819a-a9734a133b3d}</Type>
+        <Type n="STSnippetInputAction[]">_3S.CoDeSys.VisualElem.STSnippetInputAction[], VisualElem.plugin, Version=4.7.0.0, Culture=neutral, PublicKeyToken=null</Type>
         <Type n="TextDocument">{f3878285-8e4f-490b-bb1b-9acbb7eb04db}</Type>
         <Type n="UInt16">System.UInt16</Type>
         <Type n="UInt32">System.UInt32</Type>
