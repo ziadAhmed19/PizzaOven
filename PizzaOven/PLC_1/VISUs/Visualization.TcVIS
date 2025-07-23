@@ -5,7 +5,7 @@
       <Data>
         <o xml:space="preserve" t="VisualObject">
           <n n="LastVisuLanguageModelEntry" />
-          <v n="UniqueIdGenerator">"108"</v>
+          <v n="UniqueIdGenerator">"126"</v>
           <o n="VisualElemList" t="VisualElemList">
             <l n="VisualElementList" t="VisualElemCollection" cet="GenericVisualElem">
               <o>
@@ -987,7 +987,7 @@
                     </o>
                     <o>
                       <v n="Id">2880254039L</v>
-                      <v n="Value">"NOT fbPizzaOven.bPizzaInOven"</v>
+                      <v n="Value">"NOT MAIN.fbPizzaOven.bPizzaInOven"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -1158,7 +1158,7 @@
                     </o>
                     <o>
                       <v n="Id">2477733581L</v>
-                      <v n="Value">"fbPizzaOven.fbTimer.ET"</v>
+                      <v n="Value">"MAIN.fbPizzaOven.fbTimer.ET"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
@@ -1333,7 +1333,7 @@
                     </o>
                     <o>
                       <v n="Id">2477733581L</v>
-                      <v n="Value">"FB_PizzaOven.nTotalPizzasCooked"</v>
+                      <v n="Value">"MAIN.fbPizzaOven.nTotalPizzasCooked"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
@@ -2809,7 +2809,7 @@
                     </o>
                     <o>
                       <v n="Id">2880254039L</v>
-                      <v n="Value">"NOT fbPizzaOven.bPizzaOnDeck"</v>
+                      <v n="Value">"NOT MAIN.fbPizzaOven.bPizzaOnDeck"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -3000,7 +3000,7 @@
                     </o>
                     <o>
                       <v n="Id">2880254039L</v>
-                      <v n="Value">"NOT fbPizzaOven.bPizzaDone"</v>
+                      <v n="Value">"NOT MAIN.fbPizzaOven.bPizzaDone"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -3123,7 +3123,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"fbPizzaOven.bBuzzer"</v>
+                      <v n="Value">"MAIN.fbPizzaOven.bBuzzer"</v>
                     </o>
                     <o>
                       <v n="Id">3719097617L</v>
@@ -3366,7 +3366,7 @@
                     </o>
                     <o>
                       <v n="Id">2477733581L</v>
-                      <v n="Value">"fbPizzaOven.sCurrentStateString"</v>
+                      <v n="Value">"MAIN.fbPizzaOven.sCurrentStateString"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>

@@ -38,7 +38,7 @@ END_IF
 
 fbRemove_RTRIG(CLK := bRemovePizza);
 IF fbRemove_RTRIG.Q THEN
-	//bPizzaDone := FALSE;
+	bPizzaDone := FALSE;
 	bRemovePizza := FALSE;  
 END_IF
 
