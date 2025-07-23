@@ -5,7 +5,7 @@
       <Data>
         <o xml:space="preserve" t="VisualObject">
           <n n="LastVisuLanguageModelEntry" />
-          <v n="UniqueIdGenerator">"69"</v>
+          <v n="UniqueIdGenerator">"108"</v>
           <o n="VisualElemList" t="VisualElemList">
             <l n="VisualElementList" t="VisualElemCollection" cet="GenericVisualElem">
               <o>
@@ -210,7 +210,22 @@
                 <n n="TabOrder" />
               </o>
               <o>
-                <a n="ConfiguredComplexInputs" et="ComplexInput" />
+                <a n="ConfiguredComplexInputs" cet="ComplexInput">
+                  <o>
+                    <n n="DescriptionTree" />
+                    <o n="VisualElemMemberList" t="VisualElemMemberList">
+                      <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
+                        <o>
+                          <v n="Id">1186196937L</v>
+                          <v n="Value">"MAIN.bLoadPizza"</v>
+                        </o>
+                      </l>
+                    </o>
+                    <v n="SignatureName">"Visu_TapInput"</v>
+                    <v n="Name">"Tap"</v>
+                    <v n="Description">"Configure the tapping of a Boolean variable"</v>
+                  </o>
+                </a>
                 <l n="Elements" t="ArrayList" />
                 <n n="VisualElementDescription" />
                 <o n="VisualElemMemberList" t="VisualElemMemberList">
@@ -262,7 +277,7 @@
                     </o>
                     <o>
                       <v n="Id">1647042231L</v>
-                      <v n="Value">"MAIN.bLoadPizza"</v>
+                      <v n="Value">""</v>
                     </o>
                     <o>
                       <v n="Id">2812299069L</v>
@@ -398,7 +413,22 @@
                 <n n="TabOrder" />
               </o>
               <o>
-                <a n="ConfiguredComplexInputs" et="ComplexInput" />
+                <a n="ConfiguredComplexInputs" cet="ComplexInput">
+                  <o>
+                    <n n="DescriptionTree" />
+                    <o n="VisualElemMemberList" t="VisualElemMemberList">
+                      <l n="VisualElemMemberList" t="VisualElemMemberCollection" cet="VisualElemMember">
+                        <o>
+                          <v n="Id">1186196937L</v>
+                          <v n="Value">"MAIN.bRemovePizza"</v>
+                        </o>
+                      </l>
+                    </o>
+                    <v n="SignatureName">"Visu_ToggleInput"</v>
+                    <v n="Name">"Toggle"</v>
+                    <v n="Description">"Configure the toggling of a Boolean variable"</v>
+                  </o>
+                </a>
                 <l n="Elements" t="ArrayList" />
                 <n n="VisualElementDescription" />
                 <o n="VisualElemMemberList" t="VisualElemMemberList">
@@ -450,7 +480,7 @@
                     </o>
                     <o>
                       <v n="Id">1647042231L</v>
-                      <v n="Value">"MAIN.bRemovePizza"</v>
+                      <v n="Value">""</v>
                     </o>
                     <o>
                       <v n="Id">2812299069L</v>
@@ -957,7 +987,7 @@
                     </o>
                     <o>
                       <v n="Id">2880254039L</v>
-                      <v n="Value">"NOT MAIN.bPizzaInOven"</v>
+                      <v n="Value">"NOT fbPizzaOven.bPizzaInOven"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -1128,7 +1158,7 @@
                     </o>
                     <o>
                       <v n="Id">2477733581L</v>
-                      <v n="Value">"MAIN.fbTimer.ET"</v>
+                      <v n="Value">"fbPizzaOven.fbTimer.ET"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
@@ -1303,7 +1333,7 @@
                     </o>
                     <o>
                       <v n="Id">2477733581L</v>
-                      <v n="Value">"MAIN.nTotalPizzasCooked"</v>
+                      <v n="Value">"FB_PizzaOven.nTotalPizzasCooked"</v>
                     </o>
                     <o>
                       <v n="Id">2597686782L</v>
@@ -2779,7 +2809,7 @@
                     </o>
                     <o>
                       <v n="Id">2880254039L</v>
-                      <v n="Value">"NOT MAIN.bPizzaOnDeck"</v>
+                      <v n="Value">"NOT fbPizzaOven.bPizzaOnDeck"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -2970,7 +3000,7 @@
                     </o>
                     <o>
                       <v n="Id">2880254039L</v>
-                      <v n="Value">"NOT MAIN.bPizzaDone"</v>
+                      <v n="Value">"NOT fbPizzaOven.bPizzaDone"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>
@@ -3093,7 +3123,7 @@
                     </o>
                     <o>
                       <v n="Id">1999528970L</v>
-                      <v n="Value">"MAIN.bBuzzer"</v>
+                      <v n="Value">"fbPizzaOven.bBuzzer"</v>
                     </o>
                     <o>
                       <v n="Id">3719097617L</v>
@@ -3336,7 +3366,7 @@
                     </o>
                     <o>
                       <v n="Id">2477733581L</v>
-                      <v n="Value">"MAIN.sCurrentStateString"</v>
+                      <v n="Value">"fbPizzaOven.sCurrentStateString"</v>
                     </o>
                     <o>
                       <v n="Id">823443203L</v>

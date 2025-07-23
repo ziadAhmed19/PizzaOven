@@ -3,83 +3,13 @@
   <POU Name="MAIN" Id="{b9a671a8-df30-4416-a74a-a1d58cfcceb8}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	bBuzzer 				: BOOL;
-	bPizzaInOven 			: BOOL; //PizzaInOven 	Visual 	
-	bPizzaOnDeck			: BOOL; //PizzaOnDeck 	Visual 
-	bPizzaDone				: BOOL; //PizzaDone 	Visual 
+	fbPizzaOven : FB_PizzaOven ;
 	bLoadPizza				: BOOL; //InsertPizza button
 	bRemovePizza			: BOOL; //PackagePizza button
-	
-	fbTimer : TON ;
-	fbPizzaCookedTrigger :R_TRIG ;
-	tOvenTime			: TIME := T#4S;
-	
-	nTotalPizzasCooked	: UINT := 0;
-	
-	sCurrentStateString : STRING ;
-
-	eState 				: E_PizzaOvenStates ;
-	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF bPizzaOnDeck AND NOT bPizzaInOven THEN
-	bPizzaOnDeck := FALSE;
-	bPizzaInOven := TRUE ;
-END_IF
-
-IF bLoadPizza THEN
-	bLoadPizza := FALSE ;
-	bPizzaOnDeck := TRUE;
-END_IF
-
-IF bRemovePizza THEN
-	bRemovePizza := FALSE;  
-	bPizzaDone := FALSE;
-END_IF
-
-// Once program Starts init state is WaitForPizzaInOven
-CASE eState OF 
-	E_PizzaOvenStates.WaitForPizzaInOven:
-		sCurrentStateString := 'WaitForPizzaInOven';
-        IF bPizzaInOven THEN
-			eState := E_PizzaOvenStates.WeJustGotAPizza;
-		END_IF
-	// break ;
-	
-	E_PizzaOvenStates.WeJustGotAPizza:
-	sCurrentStateString := 'WeJustGotAPizza';
-	// Start the Timer
-    fbTimer(IN := TRUE, PT := tOvenTime);
-	IF fbTimer.Q THEN
-		fbTimer(IN := FALSE);
-		eState := E_PizzaOvenStates.MovePizzaOutOfOven;
-	END_IF
-	// break ;
-	
-	E_PizzaOvenStates.MovePizzaOutOfOven:
-		sCurrentStateString := 'MovePizzaOutOfOven';
-		IF NOT bPizzaDone THEN
-			bPizzaInOven := FALSE ;
-			bPizzaDone := TRUE;
-			bBuzzer := FALSE ;
-			eState := E_PizzaOvenStates.MovePizzaToTray ;
-		ELSE
-			bBuzzer := TRUE ;
-			sCurrentStateString := 'PizzaIsBurning';
-		END_IF
-		
-	// break ;
-	E_PizzaOvenStates.MovePizzaToTray:
-		sCurrentStateString := 'MovePizzaToTray';
-		nTotalPizzasCooked := nTotalPizzasCooked +1 ;
-		eState := E_PizzaOvenStates.WaitForPizzaInOven;
-	/// break ;
-	
-	ELSE 
-		sCurrentStateString := 'Invaild State' ;
-		
-END_CASE]]></ST>
+      <ST><![CDATA[fbPizzaOven(bLoadPizza := bLoadPizza, bRemovePizza := bRemovePizza);]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

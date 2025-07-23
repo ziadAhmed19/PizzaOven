@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_PizzaOven" Id="{b2a8f790-beb3-4143-9e1d-bb8e3613fd40}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_PizzaOven
+VAR_INPUT
+	bLoadPizza				: BOOL; //InsertPizza button
+	bRemovePizza			: BOOL; //PackagePizza button
+END_VAR
+VAR_OUTPUT
+	bBuzzer 				: BOOL;
+	nTotalPizzasCooked	: UINT := 0;
+END_VAR
+VAR
+	bPizzaInOven 			: BOOL; //PizzaInOven 	Visual 	
+	bPizzaOnDeck			: BOOL; //PizzaOnDeck 	Visual 
+	bPizzaDone				: BOOL; //PizzaDone 	Visual
+	
+	fbTimer : TON ;
+	tOvenTime			: TIME := T#4S;
+	fbLoad_RTRIG		: R_TRIG;
+	fbRemove_RTRIG		: R_TRIG;
+	
+	sCurrentStateString : STRING ;
+	eState 				: E_PizzaOvenStates ;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF bPizzaOnDeck AND NOT bPizzaInOven THEN
+	bPizzaOnDeck := FALSE;
+	bPizzaInOven := TRUE ;
+END_IF
+
+fbLoad_RTRIG(CLK := bLoadPizza) ;
+IF fbLoad_RTRIG.Q THEN
+	//bLoadPizza := FALSE ;
+	bPizzaOnDeck := TRUE;
+END_IF
+
+fbRemove_RTRIG(CLK := bRemovePizza);
+IF fbRemove_RTRIG.Q THEN
+	//bPizzaDone := FALSE;
+	bRemovePizza := FALSE;  
+END_IF
+
+// Once program Starts init state is WaitForPizzaInOven
+CASE eState OF 
+	E_PizzaOvenStates.WaitForPizzaInOven:
+		sCurrentStateString := 'WaitForPizzaInOven';
+        IF bPizzaInOven THEN
+			eState := E_PizzaOvenStates.WeJustGotAPizza;
+		END_IF
+	// break ;
+	
+	E_PizzaOvenStates.WeJustGotAPizza:
+	sCurrentStateString := 'WeJustGotAPizza';
+	// Start the Timer
+    fbTimer(IN := TRUE, PT := tOvenTime);
+	IF fbTimer.Q THEN
+		fbTimer(IN := FALSE);
+		eState := E_PizzaOvenStates.MovePizzaOutOfOven;
+	END_IF
+	// break ;
+	
+	E_PizzaOvenStates.MovePizzaOutOfOven:
+		sCurrentStateString := 'MovePizzaOutOfOven';
+		IF NOT bPizzaDone THEN
+			bPizzaInOven := FALSE ;
+			bPizzaDone := TRUE;
+			bBuzzer := FALSE ;
+			eState := E_PizzaOvenStates.MovePizzaToTray ;
+		ELSE
+			bBuzzer := TRUE ;
+			sCurrentStateString := 'PizzaIsBurning';
+		END_IF
+		
+	// break ;
+	E_PizzaOvenStates.MovePizzaToTray:
+		sCurrentStateString := 'MovePizzaToTray';
+		nTotalPizzasCooked := nTotalPizzasCooked +1 ;
+		eState := E_PizzaOvenStates.WaitForPizzaInOven;
+	/// break ;
+	
+	ELSE 
+		sCurrentStateString := 'Invaild State' ;
+		
+END_CASE]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
